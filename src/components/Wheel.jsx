@@ -16,25 +16,22 @@ class WheelArea extends React.Component {
     this.removeAndSpin = this.removeAndSpin.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate() {
 
-
-    const oldShots = prevProps.shots.filter(s => s.enabled).length;
     const enabledShots = this.props.shots.filter(s => s.enabled).length;
 
-    //TODO fix this
-
-    if (oldShots > 0 && enabledShots === 0) {
+    if (!this.state.submitting && enabledShots === 0) {
       this.setState({
         submitting: true,
         spinAgainText: "No shots selected!",
+        buttonText: "",
       });
-    } else if (oldShots === 0 && enabledShots > 0) {
+    } else if (this.state.submitting && enabledShots > 0) {
       this.setState({
         submitting: false,
         spinAgainText: "Press to spin",
+        buttonText: "",
       });
-
     }
   }
 
@@ -63,9 +60,10 @@ class WheelArea extends React.Component {
     // disable in shot list 
     this.props.updateEnabled(this.state.lastShot, false);
 
-    //spin again
-    // TODO how;  we need to wait for new props
-    // this.spin(event);
+    //spin again after propagation
+    setTimeout(() => {
+      this.spin();
+    }, 200);
   }
 
   renderResult(shot) {
