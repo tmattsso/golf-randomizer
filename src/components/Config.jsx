@@ -18,7 +18,7 @@ class ConfigButton extends React.Component {
   render() {
 
     const options = this.props.availableLists.map(l =>
-      new Object({ value: l, label: l })
+      Object.create({ value: l, label: l })
     );
 
     var defaultVal = options[this.props.selectedList];
