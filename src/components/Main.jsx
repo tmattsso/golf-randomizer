@@ -10,48 +10,82 @@ class Main extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const selectedList = shotdata[0].name;
     this.state = {
-      shots: shotdata,
+      shotdata: shotdata,
+      selectedShotList: selectedList,
     };
 
-    this.state.shots.forEach(element => {
-      element.enabled = true;
-      element.count = 0;
+    this.state.shotdata.forEach(shotlist => {
+      shotlist.shots.forEach(element => {
+        element.enabled = true;
+        element.count = 0;
+      })
     });
+
 
     this.updateShotEnabled = this.updateShotEnabled.bind(this);
     this.addShotCount = this.addShotCount.bind(this);
+    this.changeShotList = this.changeShotList.bind(this);
   }
+
+  getShotList() {
+    return this.state.shotdata[this.getShotListIndex()].shots;
+  }
+
+  getShotListIndex() {
+    const index = this.state.shotdata.findIndex(x => x.name === this.state.selectedShotList);
+    return index;
+  }
+
 
   updateShotEnabled(club, enabled) {
 
     //TODO dont clone full state
-    const newState = Object.assign({}, this.state);
+    const newShotData = Object.assign([], this.state.shotdata);
+    const listIndex = this.getShotListIndex();
 
-    var index = this.state.shots.findIndex(x => x.club === club);
-    newState.shots[index].enabled = enabled;
-    this.setState(newState);
+    var index = newShotData[listIndex].shots.findIndex(x => x.club === club);
+    newShotData[listIndex].shots[index].enabled = enabled;
+
+    this.setState({
+      shotdata: newShotData,
+    });
   }
 
   addShotCount(club) {
 
     //TODO dont clone full state
-    const newState = Object.assign({}, this.state);
+    const newShotData = Object.assign([], this.state.shotdata);
+    const listIndex = this.getShotListIndex();
 
-    var index = this.state.shots.findIndex(x => x.club === club);
-    newState.shots[index].count++;
-    this.setState(newState);
+    var index = newShotData[listIndex].shots.findIndex(x => x.club === club);
+    newShotData[listIndex].shots[index].count++;
+
+    this.setState({
+      shotdata: newShotData,
+    });
+  }
+
+  changeShotList(list) {
+    this.setState({
+      selectedShotList: list,
+    });
   }
 
   render() {
+
+    const availableLists = this.state.shotdata.map(shotlist => shotlist.name);
+    var index = this.state.shotdata.findIndex(x => x.name === this.state.selectedShotList);
 
     return (
       <div className="App">
         <header className="App-header">
 
-          <ConfigButton />
-          <WheelArea shots={this.state.shots} addShotCount={this.addShotCount} updateEnabled={this.updateShotEnabled} />
-          <Shotlist shots={this.state.shots} updateEnabled={this.updateShotEnabled} />
+          <ConfigButton selectedList={index} availableLists={availableLists} changeShotList={this.changeShotList} />
+          <WheelArea shots={this.getShotList()} addShotCount={this.addShotCount} updateEnabled={this.updateShotEnabled} />
+          <Shotlist shots={this.getShotList()} updateEnabled={this.updateShotEnabled} />
         </header>
       </div>
     );

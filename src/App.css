@@ -14,6 +14,23 @@
   color: white;
 }
 
+.configArea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+    width: 100%;
+}
+
+.configArea .label {
+  margin: 0 10px;
+}
+
+.configArea .listSelect {
+  color: black;
+  margin-left: 30px;
+  flex-grow: 1;
+}
+
 .wheelArea {
   flex-grow: 1;
   width: 100vw;
@@ -21,8 +38,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-
 }
 
 .wheelArea button{
