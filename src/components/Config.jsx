@@ -18,15 +18,19 @@ class ConfigButton extends React.Component {
   render() {
 
     const options = this.props.availableLists.map(l =>
-      Object.create({ value: l, label: l })
+      ({ "value": l, "label": l })
     );
 
     var defaultVal = options[this.props.selectedList];
 
     return (
       <div className='configArea'>
+        <button className="resetButton" onClick={this.props.resetShotData}>
+          R
+        </button>
         <div className='label'>List:</div>
-        <Select className='listSelect' options={options} defaultValue={defaultVal} onChange={this.handleChange} />
+        <Select className='listSelect' options={options} value={defaultVal} onChange={this.handleChange} />
+
       </div>
     );
   }
