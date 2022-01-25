@@ -1,0 +1,75 @@
+.App {
+  text-align: center;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.wheelArea {
+  flex-grow: 1;
+  width: 100vw;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+
+}
+
+.wheelArea button{
+
+  border: 0;
+  width: 100vw;
+}
+
+.wheelButton {
+    flex-grow: 1;
+}
+.wheelButton .winner {
+  font-size: 36pt;
+  margin-bottom: 30px;
+}
+.wheelButton .spin-again {
+  font-size: 18pt;
+}
+.removeButton {
+  font-size: 18pt;
+  padding: 10px 0px;
+}
+
+.shot-list {
+    max-height: 200px;
+    width: 100%;
+    overflow: scroll;
+}
+.shot-list-item{
+  
+  margin: 0 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid gray;
+}
+
+.shot-list-item .text {
+  
+  text-align: left;
+    flex-grow: 1;
+}
+.shot-list-item .count {
+  color: gray;
+}
+.shot-list-item input {
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
+}
